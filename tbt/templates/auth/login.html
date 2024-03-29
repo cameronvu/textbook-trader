@@ -23,22 +23,17 @@
         <div class="layout_padding2-top">
           <div class="row">
             <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-              <form action="">
+              <form method="post">
                 <div class="contact_form-container">
                   <div>
                     <div>
-                      <input type="text" placeholder="Email" />
+                      <input type="text" placeholder="Username" name="username" id="username" required/>
                     </div>
                     <div>
-                      <input type="password" placeholder="Password" />
+                      <input type="password" placeholder="Password" name="password" id="password" required/>
                     </div>
-                    <!-- <div>
-                      <button type="submit" onclick="javascript:location.href='book-list.html'">Send</button>
-                    </div> -->
                     <div class="layout_padding2-top">
-                      <a href="book-list.html" style="border: none;background-color: #fd9e2e;color: #fff;padding: 10px 55px;font-size: 15px;text-transform: uppercase;margin-top: 35px;">
-                          Send
-                      </a>
+                      <input type="submit" value="Log In" style="border: none;background-color: #fd9e2e;color: #fff;padding: 10px 55px;font-size: 15px;text-transform: uppercase;margin-top: 35px;">
                     </div>
                     <div class="layout_padding2-top">
                       <p>No account? <a href="{{ url_for('auth.register') }}">Sign up!</a></p>
@@ -52,5 +47,6 @@
       </div>
     </section>
     <!-- end login section -->
+
 {% endblock %}
 
