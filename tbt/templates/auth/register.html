@@ -1,49 +1,57 @@
-{% extends 'base2.html' %}
+{% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Register{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
 
-<section class="contact_section layout_padding">
+<!-- register section -->
+<section class="about_section contact_section layout_padding">
   <div class="container-fluid">
     <div class="row">
-      <div class="offset-md-1 col-md-10 offset-md-1">
-        <div class="heading_container">
-          <hr>
-          <h2>
-            Register
-          </h2>
+      <div class="col-md-6 px-0">
+        <div class="img-box" style="text-align: center;">
+          <img src="{{ url_for('static', filename='images/book-stack-5.png') }}" alt="" style="max-width: 60%">
         </div>
       </div>
-    </div>
-
-    <div class="layout_padding2-top">
-      <div class="row">
-        <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-          <form method="post">
-            <div class="contact_form-container">
-              <div>
-                <div>
-                  <input type="text" placeholder="Username" name="username" id="username" required/>
-                </div>
-                <div>
-                  <input type="password" placeholder="Password" name="password" id="password" required/>
-                </div>
-                <div class="layout_padding2-top">
-                  <input type="submit" value="Register" style="border: none;background-color: #fd9e2e;color: #fff;padding: 10px 55px;font-size: 15px;text-transform: uppercase;margin-top: 35px;">
-                </div>
-                <div class="layout_padding2-top">
-                  <p>Already have an account? <a href="{{ url_for('auth.login') }}">Log in!</a></p>
-                </div>
+      <div class="col-md-5">
+        <div class="detail-box">
+          <div class="heading_container">
+            <hr>
+            <h2>
+              Create an Account
+            </h2>
+          </div>
+          <div class="layout_padding2-top">
+            <div class="row">
+              <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+                <form method="post">
+                  <div class="contact_form-container">
+                    <div>
+                      <div>
+                        <input type="text" placeholder="Username" name="username" id="username" required/>
+                      </div>
+                      <div>
+                        <input type="password" placeholder="Password" name="password" id="password" required/>
+                      </div>
+                      <div class="layout_padding2-top">
+                        <input type="submit" value="Register" style="border: none;background-color: #fd9e2e;color: #fff;padding: 10px 55px;font-size: 15px;text-transform: uppercase;margin-top: 35px;">
+                      </div>
+                      <div class="layout_padding2-top">
+                        <p>Already have an account? <a href="{{ url_for('auth.login') }}">Log in!</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- end register section -->
 
 {% endblock %}
