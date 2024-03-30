@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Posts{% endblock %}</h1>
-  {% if g.user %}
-    <a class="action" href="{{ url_for('listing.create') }}">New</a>
-  {% endif %}
+
 {% endblock %}
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
+
+<!-- home section -->
+<section class="about_section contact_section layout_padding">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="detail-box">
+          <div class="heading_container">
+            <hr>
+            <h2>
+              Current Listings
+            </h2>
+          </div>
+          <div class="layout_padding2-top">
+            <div class="row">
+              <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+                <p><a href="{{ url_for('listing.create') }}">Create a Listing</a></p>
+              </div>
+            </div>
+          </div>
         </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('listing.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- end home section -->
+
 {% endblock %}

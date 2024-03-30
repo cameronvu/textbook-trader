@@ -1,5 +1,6 @@
+import logging
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
 from werkzeug.exceptions import abort
 
@@ -21,9 +22,17 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
+    current_app.logger.info('Inside create')
     if request.method == 'POST':
+        current_app.logger.info('create POST')
         title = request.form['title']
         body = request.form['body']
+        author_id = request.form['author_id']
+        authors = request.form['authors']
+        price = request.form['price']
+        bk_condition = request.form['bk_condition']
+        edition = request.form['edition']
+        subject = request.form['subject']
         error = None
 
         if not title:

@@ -41,7 +41,6 @@ def create_app(test_config=None):
     from . import listing
     app.register_blueprint(listing.bp)
     app.add_url_rule('/', endpoint='index')
-
     
     return app
 

@@ -35,7 +35,7 @@ def register():
             try:
                 db.execute(
                     "INSERT INTO user (username, password, first_name, last_name, email) VALUES (?, ?, ?, ?, ?)",
-                    (username, generate_password_hash(password)),
+                    (username, generate_password_hash(password), first_name, last_name, email),
                 )
                 db.commit()
                 flash('Account created successfully', 'success')

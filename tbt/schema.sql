@@ -20,6 +20,6 @@ CREATE TABLE post (
   bk_condition TEXT NOT NULL,
   authors TEXT NOT NULL,
   edition TEXT NOT NULL, 
-  subject NOT NULL
+  subject NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );
