@@ -38,6 +38,7 @@ def register():
                     (username, generate_password_hash(password)),
                 )
                 db.commit()
+                flash('Account created successfully', 'success')
             except db.IntegrityError:
                 error = f"User {username} is already registered."
             else:
@@ -45,7 +46,7 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', showMin=True)
 
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -69,9 +70,9 @@ def login():
             session['user_id'] = user['id']
             return redirect(url_for('index'))
 
-        flash(error)
+        flash(error, 'error')
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', showMin=True)
 
 
 @bp.before_app_request
