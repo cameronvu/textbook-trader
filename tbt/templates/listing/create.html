@@ -1,29 +1,82 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Post{% endblock %}</h1>
+  
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="authors">Author</label>
-    <input name="authors" id="authors" value="{{ request.form['authors'] }}" required>
-    <!-- <label for="price">Price</label>
-    <input name="price" id="price" value="{{ request.form['price'] }}" required>
-    <label for="bk_condition">Condition</label>
-    <select name="bk_condition" id="bk_condition" value="{{ request.form['bk_condition'] }}" required>
-        <option value="new">New</option>
-        <option value="lightly_used">Lightly Used</option>
-        <option value="heavilt_used">Heavily Used</option>
-    </select>
-    <label for="edition">Edition</label>
-    <input name="edition" id="edition" value="{{ request.form['edition'] }}" required>
-      <label for="subject">Subject</label>
-    <input name="subject" id="subject" value="{{ request.form['subject'] }}" required>
-    <label for="body">Body</label>
-    <input name="body" id="body" value="{{ request.form['body'] }}" required> -->
-    <input type="submit" value="Save">
-  </form>
+
+<style>
+  .contact_section select {
+    border: none;
+    outline: none;
+    height: 45px;
+    width: 100%;
+    margin: 10px 0;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+    padding-left: 15px;
+}
+</style>
+  
+  <!-- create section -->
+  <section class="contact_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="offset-md-1 col-md-10 offset-md-1">
+          <div class="heading_container">
+            <hr>
+            <h2>
+              Create Listing
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout_padding2-top">
+        <div class="row">
+          <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
+            <form method="post">
+              <div class="contact_form-container">
+                <div>
+                  <div>
+                    <input type="text" placeholder="Title" name="title" id="title" value="{{ request.form['title'] }}" required>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Author" name="authors" id="authors" value="{{ request.form['authors'] }}" required>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Price" name="price" id="price" value="{{ request.form['price'] }}" required>
+                  </div>
+                  <div>
+                    <label for="bk_condition">Book Condition</label>
+                    <select name="bk_condition" id="bk_condition" value="{{ request.form['bk_condition'] }}" required>
+                      <option value="new">New</option>
+                      <option value="lightly_used">Lightly Used</option>
+                      <option value="heavilt_used">Heavily Used</option>
+                    </select>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Edition" name="edition" id="edition" value="{{ request.form['edition'] }}" required>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Subject" name="subject" id="subject" value="{{ request.form['subject'] }}" required>
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Description" name="body" id="body" value="{{ request.form['body'] }}" required>
+                  </div>
+                  
+                  <input type="submit" value="Save" style="border: none;background-color: #fd9e2e;color: #fff;padding: 10px 55px;font-size: 15px;text-transform: uppercase;margin-top: 35px;">
+
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end createeee section -->
+
 {% endblock %}
