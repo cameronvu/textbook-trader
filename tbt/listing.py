@@ -13,7 +13,7 @@ bp = Blueprint('listing', 'tbt') # this is the blueprint that is specific to the
 def index():
     db = get_db()
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, body, created, author_id, username, authors, price, bk_condition, edition, subject'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()

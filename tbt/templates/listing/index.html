@@ -7,7 +7,7 @@
 {% block content %}
 
 <!-- home section -->
-<section class="about_section contact_section layout_padding">
+<section class="layout_padding">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5">
@@ -18,6 +18,50 @@
               Current Listings
             </h2>
           </div>
+
+
+
+
+
+{% for post in posts %}
+    <article class="post">
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Condition</th>
+            <th>Edition</th>
+            <th>Subject</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>{{ post['title'] }}</td>
+            <td>{{ post['authors'] }}</td>
+            <td>{{ post['price'] }}</td>
+            <td>{{ post['bk_condition'] }}</td>
+            <td>{{ post['edition'] }}</td>
+            <td>{{ post['subject'] }}</td>
+            <td>{{ post['body'] }}</td>
+          </tr>
+      <header>
+        {% if g.user['id'] == post['author_id'] %}
+          <form action="{{ url_for('listing.delete', id=post['id']) }}" method="post">
+              <input type="submit" value="Remove Listing">
+          </form>
+        {% endif %}
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+
+
+
+
+
+
           <div class="layout_padding2-top">
             <div class="row">
               <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">

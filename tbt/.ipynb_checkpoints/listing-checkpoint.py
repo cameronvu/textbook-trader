@@ -1,4 +1,4 @@
-import logging
+import sys
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, current_app
 )
@@ -13,7 +13,7 @@ bp = Blueprint('listing', 'tbt') # this is the blueprint that is specific to the
 def index():
     db = get_db()
     posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
+        'SELECT p.id, title, body, created, author_id, username, authors, price, bk_condition, edition, subject'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
@@ -22,17 +22,18 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    current_app.logger.info('Inside create')
+    
+    print('Inside create', file=sys.stderr)
+
     if request.method == 'POST':
-        current_app.logger.info('create POST')
         title = request.form['title']
-        body = request.form['body']
-        author_id = request.form['author_id']
         authors = request.form['authors']
         price = request.form['price']
         bk_condition = request.form['bk_condition']
         edition = request.form['edition']
         subject = request.form['subject']
+        body = request.form['body']
+        
         error = None
 
         if not title:
