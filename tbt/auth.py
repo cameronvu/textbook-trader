@@ -1,3 +1,4 @@
+import sys
 import functools
 
 from flask import (
@@ -98,7 +99,46 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
-
         return view(**kwargs)
 
     return wrapped_view
+
+
+@bp.route('/<int:id>/getuser')
+@login_required
+def getuser(id):
+    return render_template('auth/account.html')
+
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
+@login_required
+def update(id):
+
+    print('Inside account create/update', file=sys.stderr)
+
+    print('Request method type: ' + request.method, file=sys.stderr)
+
+    if request.method == 'GET':
+        return render_template('auth/account.html', updateMode=True)
+
+    if request.method == 'POST':
+        print('1', file=sys.stderr)
+        first_name = request.form['first_name']
+        print('1', file=sys.stderr)
+        last_name = request.form['last_name']
+        print('1', file=sys.stderr)
+        error = None
+
+
+        if error is not None:
+            flash(error)
+        else:
+            db = get_db()
+            db.execute(
+                'UPDATE user SET first_name = ?, last_name = ?'
+                ' WHERE id = ?',
+                (first_name, last_name, session.get('user_id'))
+            )
+            db.commit()
+            return redirect(url_for('listing.index'))
+
+    return render_template('auth/account.html')

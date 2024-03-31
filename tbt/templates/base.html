@@ -64,7 +64,7 @@
 		}
     /* account menu item */
     .nav_user-btn {
-      background-image: url(../static/images/user.png);
+      background-image: url({{base_url}}/static/images/user.png);
       background-size: 18px;
       background-repeat: no-repeat;
       width: 35px;
@@ -117,7 +117,7 @@
                   <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav_user-btn" href="/">&nbsp</a>
+                  <a class="nav-link nav_user-btn" href="{{ url_for('auth.getuser', id=g.user['id']) }}">&nbsp;</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link">Hi {{ g.user['first_name'] }}!</a>

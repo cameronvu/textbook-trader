@@ -15,30 +15,129 @@
   <title>Textbook Trader</title>
 
   <!-- slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
 
   <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Dosis:400,600,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
-  <!-- Custom styles for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Dosis:400,600,700|Poppins:400,600,700&display=swap"
+    rel="stylesheet" />
+  <!-- cCustom styles for this template -->
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{{ url_for('static', filename='css/responsive.css') }}" rel="stylesheet" />
+  <style type="text/css">
+    /* alert message style */
+    .info, .success, .warning, .error, .validation {
+			border: 1px solid;
+			margin: 10px 0px;
+			padding: 15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;
+		}
+		.info {
+			color: #00529B;
+			background-color: #BDE5F8;
+			background-image: url('https://i.imgur.com/ilgqWuX.png');
+		}
+		.success {
+			color: #4F8A10;
+			background-color: #DFF2BF;
+			background-image: url('https://i.imgur.com/Q9BGTuy.png');
+		}
+		.warning {
+			color: #9F6000;
+			background-color: #FEEFB3;
+			background-image: url('https://i.imgur.com/Z8q7ww7.png');
+		}
+		.error{
+			color: #D8000C;
+			background-color: #FFBABA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+		.validation{
+			color: #D63301;
+			background-color: #FFCCBA;
+			background-image: url('https://i.imgur.com/GnyDvKN.png');
+		}
+    /* account menu item */
+    .nav_user-btn {
+      background-image: url({{base_url}}/static/images/user.png);
+      background-size: 18px;
+      background-repeat: no-repeat;
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      border: none;
+      margin: 0 40px 0 15px;
+      background-position: center;
+    }
+  </style>
 </head>
 
-<body>
+<body {% if g.user %}class="sub_page" {% endif %}>
   <div class="hero_area">
-    <!-- header section strats -->
+
+    <!-- header section starts -->
     <div class="brand_box">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
         <span>
-          Textbook Marketplace
+          Textbook Trader
         </span>
       </a>
     </div>
     <!-- end header section -->
+
+    {% if g.user %}
+      <!-- nav section -->
+  <section class="nav_section">
+    <div class="container">
+      <div class="custom_nav2">
+        <nav class="navbar navbar-expand custom_nav-container ">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex  flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                
+                <li class="nav-item">
+                  <a class="nav-link" href="/">My Listings </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('listing.create') }}">Create Listing </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link nav_user-btn" href="{{ url_for('auth.getuser', id=g.user['id']) }}">&nbsp;</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link">Hi {{ g.user['first_name'] }}!</a>
+                </li>
+                
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                </li> -->
+              </ul>
+              
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </section>
+  <!-- end nav section -->
+  {% endif %}
+
+    {% if not g.user %}
     <!-- slider section -->
     <section class=" slider_section position-relative">
       <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
@@ -68,47 +167,61 @@
       </div>
     </section>
     <!-- end slider section -->
+    {% endif %}
+
   </div>
 
+    <!-- message section -->
+    {% if get_flashed_messages() %}
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <div class="{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <!-- end message section -->
 
+  <!-- block content injection -->
+  {% block content %}{% endblock %}
+  <!-- end block content injection -->
 
-  <!-- shop section -->
-
-  <section class="shop_section layout_padding">
-    <div class="container">
-      <div class="box">
-        <div class="detail-box">
-          <h2>
-            Textbook Marketplace
-          </h2>
-          <h3>
-            Textbooks have never been easier.
-          </h3>
-          <p>
-            Login below to begin browsing textbooks available for purchase
-          </p>
-        </div>
-        <div class="img-box">
-          <img src="{{ url_for('static', filename='images/book-stack-4-img.jpg') }}" alt="" style="height: 400px;">
-        </div>
-        <div class="btn-box">
-          <a href="{{ url_for('auth.login') }}">
-            Login For Books
-          </a>
+  {% if not g.user %}
+    {% if not showMin %}
+    <!-- shop section -->
+    <section class="shop_section layout_padding">
+      <div class="container">
+        <div class="box">
+          <div class="detail-box">
+            <h2>
+              Textbook Trader
+            </h2>
+            <h3>
+              Textbooks have never been easier.
+            </h3>
+            <p>
+              Login below to begin browsing textbooks available for trade
+            </p>
+          </div>
+          <div class="img-box">
+            <img src="{{ url_for('static', filename='images/book-stack-4-img.jpg') }}" alt="" style="height: 400px;">
+          </div>
+          <div class="btn-box">
+            <a href="{{ url_for('auth.login') }}">
+              Login For Books
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+    <!-- end shop section -->
+    {% endif %}
+  {% endif %}
 
-  <!-- end shop section -->
 
   <!-- info section -->
-
   <section class="info_section layout_padding">
     <div class="container">
       <div class="info_logo">
         <h2>
-          Textbook Marketplace
+          Textbook Trader
         </h2>
       </div>
       <div class="info_contact">
@@ -131,7 +244,7 @@
           </div>
           <div class="col-md-4">
             <a href="">
-              <img src="{{ url_for('static', filename='images/mail.p') }}" alt="">
+              <img src="{{ url_for('static', filename='images/mail.png') }}" alt="">
               <span>
                 demo@gmail.com
               </span>
@@ -178,7 +291,6 @@
 
     </div>
   </section>
-
   <!-- end info section -->
 
 
