@@ -4,9 +4,14 @@
 echo “Installing the tbt project in your environment”
 pip install -e .
 
-# Initializing the database
-echo “Initializing the database”
-flask --app tbt init-db
+# Check if the database directory (instance) exists
+if [ -d instance ]; then
+  echo "Database already exists, skipping initialization."
+else
+  # Initializing the database
+  echo “Initializing the database”
+  flask --app tbt init-db
+fi
 
 # Starting the tbt application
 echo “Starting the tbt application”

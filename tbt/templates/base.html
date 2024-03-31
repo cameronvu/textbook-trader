@@ -117,7 +117,7 @@
                   <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link nav_user-btn" href="/">&nbsp</a>
+                  <a class="nav-link nav_user-btn" href="{{ url_for('auth.getuser', id=g.user['id']) }}">&nbsp;</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link">Hi {{ g.user['first_name'] }}!</a>
