@@ -6,57 +6,74 @@
 
 {% block content %}
 
-
-{% if g.user %}
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  table tr th {
+    background-color: lightblue;
+  }
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+  }
+</style>
 
 <!-- account section -->
 <section class="contact_section layout_padding">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-12">
         <div class="detail-box">
           <div class="heading_container">
             <hr>
             <h2>
-              Account Details
+              {% if updateMode %}Edit {% endif %}Account Details
             </h2>
           </div>
-          <article class="post">
-              {% if updateMode %}
-              <form action="{{ url_for('auth.update', id=g.user['id']) }}" method="post">
-                <label for="first_name">Edit First Name</label>
-                <input type="text" placeholder="{{ g.user['first_name'] }}" name="first_name" id="first_name" value="{{ request.form['first_name'] }}">
-               <label for="last_name">Edit Last Name</label> 
-               <input type="text" placeholder="{{ g.user['last_name'] }}" name="last_name" id="last_name" value="{{ request.form['last_name'] }}">
-                  
-                      <input type="submit" value="Save">
-                  </form>
-              {% else %}
-                <table>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                  <th>Action</th>
-              </tr>
-              <tr>
-                <td>{{ g.user['first_name'] }}</td>
-                <td>{{ g.user['last_name'] }}</td>
-                <td>{{ g.user['username'] }}</td>
-                <td>{{ g.user['email'] }}</td>
-                  <td>
-                <form action="{{ url_for('auth.update', id=g.user['id']) }}" method="get">
-                  <input type="submit" value="Edit">
-                </form>
-              </td>
-              </tr>
-            </table>
-              {% endif %}
-            
-          </article>
-          <hr>
           <div class="layout_padding2-top">
+            <div class="row">
+              <div class="offset-lg-2 col-md-8 offset-md-1">
+                <article class="post">
+                  {% if updateMode %}
+                  <form action="{{ url_for('auth.update', id=g.user['id']) }}" method="post">
+                    <label for="first_name">Edit First Name</label>
+                    <input type="text" placeholder="{{ g.user['first_name'] }}" name="first_name" id="first_name" value="{{ request.form['first_name'] }}">
+                    <label for="last_name">Edit Last Name</label>
+                    <input type="text" placeholder="{{ g.user['last_name'] }}" name="last_name" id="last_name" value="{{ request.form['last_name'] }}">
+                    <input type="submit" value="Save">
+                  </form>
+                  {% else %}
+                  <table>
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>Action</th>
+                    </tr>
+                    <tr>
+                      <td>{{ g.user['first_name'] }}</td>
+                      <td>{{ g.user['last_name'] }}</td>
+                      <td>{{ g.user['username'] }}</td>
+                      <td>{{ g.user['email'] }}</td>
+                      <td>
+                        <form action="{{ url_for('auth.update', id=g.user['id']) }}" method="get">
+                          <input type="submit" value="Edit">
+                        </form>
+                      </td>
+                    </tr>
+                  </table>
+                  {% endif %}
+                </article>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -64,13 +81,5 @@
   </div>
 </section>
 <!-- end account section -->
-
-
-
-
-
-
-
-{% endif %}
 
 {% endblock %}

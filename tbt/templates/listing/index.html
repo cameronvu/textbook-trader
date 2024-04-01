@@ -6,14 +6,32 @@
 
 {% block content %}
 
-
 {% if g.user %}
+
+<style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  table tr th {
+    background-color: lightblue;
+  }
+  tr:nth-child(odd) {
+    background-color: #dddddd;
+  }
+</style>
 
 <!-- listing section -->
 <section class="contact_section layout_padding">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-12">
         <div class="detail-box">
           <div class="heading_container">
             <hr>
@@ -21,43 +39,46 @@
               Current Listings
             </h2>
           </div>
-          {% for post in posts %}
-          <article class="post">
-            <table>
-              <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Condition</th>
-                <th>Edition</th>
-                <th>Subject</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td>{{ post['title'] }}</td>
-                <td>{{ post['authors'] }}</td>
-                <td>{{ post['price'] }}</td>
-                <td>{{ post['bk_condition'] }}</td>
-                <td>{{ post['edition'] }}</td>
-                <td>{{ post['subject'] }}</td>
-                <td>{{ post['body'] }}</td>
-              </tr>
-              <header>
-                {% if g.user['id'] == post['author_id'] %}
-                <form action="{{ url_for('listing.delete', id=post['id']) }}" method="post">
-                  <input type="submit" value="Remove Listing">
-                </form>
-                {% endif %}
-              </header>
-          </article>
-          {% if not loop.last %}
-          <hr>
-          {% endif %}
-          {% endfor %}
           <div class="layout_padding2-top">
             <div class="row">
-              <div class="col-lg-4 offset-lg-2 col-md-5 offset-md-1">
-                <p><a href="{{ url_for('listing.create') }}">Create a Listing</a></p>
+              <div class="offset-lg-2 col-md-8 offset-md-1">
+                {% if posts %}
+
+                <article class="post">
+                  <table>
+                    <tr>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Price</th>
+                      <th>Condition</th>
+                      <th>Edition</th>
+                      <th>Subject</th>
+                      <th>Description</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for post in posts %}
+                    <tr>
+                      <td>{{ post['title'] }}</td>
+                      <td>{{ post['authors'] }}</td>
+                      <td>{{ post['price'] }}</td>
+                      <td>{{ post['bk_condition'] }}</td>
+                      <td>{{ post['edition'] }}</td>
+                      <td>{{ post['subject'] }}</td>
+                      <td>{{ post['body'] }}</td>
+                      <td>
+                        {% if g.user['id'] == post['author_id'] %}
+                        <form action="{{ url_for('listing.delete', id=post['id']) }}" method="post">
+                          <input type="submit" value="Remove Listing">
+                        </form>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                </article>
+                {% else %}
+                <p>No listings found.</p>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -67,13 +88,6 @@
   </div>
 </section>
 <!-- end listing section -->
-
-
-
-
-
-
-
 {% endif %}
 
 {% endblock %}
