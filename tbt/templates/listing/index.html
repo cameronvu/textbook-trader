@@ -70,6 +70,10 @@
                         <form action="{{ url_for('listing.delete', id=post['id']) }}" method="post">
                           <input type="submit" value="Remove Listing">
                         </form>
+                        {% elif g.user['id'] != post['author_id'] %}
+                        <form action="{{ url_for('listing.update_claim', id=post['id']) }}" method="post">
+                          <input type="submit" value="Claim Textbook">
+                        </form>
                         {% endif %}
                       </td>
                     </tr>

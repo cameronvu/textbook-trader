@@ -15,6 +15,7 @@ def index():
     posts = db.execute(
         'SELECT p.id, title, body, created, author_id, username, authors, price, bk_condition, edition, subject'
         ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' WHERE claimed_by IS NULL'
         ' ORDER BY created DESC'
     ).fetchall()
     return render_template('listing/index.html', posts=posts)
@@ -107,5 +108,27 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('listing.index'))
+
+
+
+
+@bp.route('/<int:id>/update_claim', methods=('POST',))
+@login_required
+def update_claim(id):
+    print('Inside update_claim', file=sys.stderr)
+        
+    db = get_db()
+    db.execute(
+        'UPDATE post SET claimed_by = ?'
+        ' WHERE id = ?',
+        (g.user['id'], id)
+    )
+    db.commit()
+            
+    return redirect(url_for('listing.index'))
+
+
+
+
 
 

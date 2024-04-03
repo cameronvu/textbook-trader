@@ -21,5 +21,6 @@ CREATE TABLE post (
   authors TEXT NOT NULL,
   edition TEXT NOT NULL, 
   subject NOT NULL,
+  claimed_by INTEGER,
   FOREIGN KEY (author_id) REFERENCES user (id)
 );
